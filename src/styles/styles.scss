@@ -1,0 +1,28 @@
+$btn-border-radius: 0px;
+
+$primary: #19A0FB;
+$dark: #414646;
+
+$theme-colors: (
+  "dark": $dark,
+  "primary": $primary
+);
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/bootstrap-vue-next/src/styles/styles.scss';
+
+.content {
+  margin-top: 23px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.navbar-text {
+  color: $white;
+}
+
+.btn-primary {
+  .btn-content {
+    color: $white;
+  }
+}
