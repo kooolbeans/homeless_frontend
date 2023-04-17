@@ -1,15 +1,13 @@
 version: "3.4"
 services:
   frontend:
-    image: node:18.16.0-slim
-    container_name: homeless_frontend
-    working_dir: /var/www/html/app/
-    entrypoint: /bin/bash
-    expose:
+    image: homeless-frontend
+    container_name: homeless-frontend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
       - 3000:3000
-    volumes:
-      - ./frontend/:/var/www/html/app
-    tty: true
     networks:
       - homeless-network
 
