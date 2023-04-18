@@ -1,10 +1,11 @@
 import { http, mutateState } from '@/utils';
-// import { watch } from 'vue';
+import { watch } from 'vue';
 import { Module } from 'vuex';
 
 interface HomieStore {
   name: string,
   description: string,
+  image: string,
 }
 
 const store: Module<HomieStore, unknown> = {
@@ -12,54 +13,50 @@ const store: Module<HomieStore, unknown> = {
   state() {
     return {
       name: '',
-      description: 'description'
+      description: 'description',
+      image: '',
+      code: '',
     };
   },
 
   mutations: {
     mutateState(state, payload) {
       mutateState(state, payload);
-    }
+    },
+
+    update(state, { name, description, image_url: image }) {
+      mutateState(state, {
+        name,
+        description,
+        image,
+      });
+    },
   },
 
   actions: {
-    // loginPassword(context, payload: AnyObject) {
-    //   return new Promise((resolve, reject) => {
-    //     const { data, error } = loginPassword(payload);
-    //     watch(data, () => {
-    //       context.commit('mutateState', data.value);
-    //       useCookies().set(VITE_TOKEN_KEY as string, data.value.token, {
-    //         path: '/'
-    //       });
-    //       resolve(data.value);
-    //     });
+    // @ts-ignore
+    async get({ commit }: any, params: any) {
+      const { id } = params;
 
-    //     watch(error, () => {
-    //       reject(error.value);
-    //     });
-    //   });
-    // },
-    // userGet(context, payload: AnyObject) {
-    //   return new Promise((resolve, reject) => {
-    //     const { data, error } = userGet(payload);
-    //     watch(data, () => {
-    //       context.commit('mutateState', { user: data.value });
-    //       resolve(data.value);
-    //     });
+      try {
+        const homie =  await http.get(`/homie/${id}`);
+        commit('update', homie);
+      } catch(error) {
+        throw error;
+      }
+    },
 
-    //     watch(error, () => {
-    //       reject(error.value);
-    //     });
-    //   });
-    // },
-    // userLogout() {
-    //   return new Promise((resolve) => {
-    //     useCookies().remove(VITE_TOKEN_KEY as string, { path: '/' });
-    //     window.location.href = '/';
-    //     resolve('退出成功');
-    //   });
-    // }
+    async code({ commit }: any, params: any) {
+      const { id } = params;
+      try {
+        const data =  await http.get(`/qr/${id}`);
+        console.log(data);
+        commit('mutateState', data);
+      } catch(error) {
+        throw error;
+      }
+    },
   }
-};
+}
 
-export default store;
+export default store

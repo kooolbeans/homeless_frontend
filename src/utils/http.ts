@@ -3,14 +3,11 @@ import axios from 'axios';
 const { VITE_API_BASEURL } = import.meta.env;
 
 export const http = axios.create({
-  baseURL: `${VITE_API_BASEURL}/api`,
+  // @ts-ignore
+  baseURL: VITE_API_BASEURL,
   withCredentials: false,
-  timeout: 5000
+  timeout: 5000,
 });
-
-http.interceptors.request.use(
-  (error) => Promise.reject(error),
-);
 
 http.interceptors.response.use(
   ({ data }) => data,

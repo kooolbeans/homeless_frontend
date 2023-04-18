@@ -2,15 +2,20 @@
   <Profile />
   <b-row>
     <b-col>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Typography
-
-      <b-button size="large" variant="primary">Donate today</b-button>
+      {{ description }}
+      <b-button
+        size="large"
+        variant="primary"
+        @click="navigateToPayments()"
+      >
+        Donate today
+      </b-button>
     </b-col>
   </b-row>
 </template>
 
 <script>
+import get from 'lodash/get';
 import Profile from '@/components/Profile.vue';
 
 export default {
@@ -18,11 +23,24 @@ export default {
     Profile,
   },
 
+  computed: {
+    description: () => {
+      return get(this, '$store.state.homie.description', null);
+    },
+  },
+
   props: ['id'],
   created() {
-    console.log(this.id);
-    // this.store.homie.get();
-  }
+    this.$store.dispatch('homie/get', {
+      id: this.$route.params.id
+    })
+  },
+
+  methods: {
+    navigateToPayments() {
+      this.$router.push('/donate')
+    }
+  },
 }
 </script>
 

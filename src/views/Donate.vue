@@ -1,5 +1,6 @@
 <template>
   <Profile />
+  <StripeCheckout />
   <b-form @submit="onSubmit" @reset="onReset">
     <b-row>
       <b-col>
@@ -99,6 +100,7 @@
 </template>
 
 <script>
+import { StripeCheckout } from '@vue-stripe/vue-stripe';
 import Profile from '@/components/Profile.vue';
 
 const countries = [
@@ -108,6 +110,7 @@ const countries = [
 export default {
   components: {
     Profile,
+    StripeCheckout,
   },
 
   data: () => ({
