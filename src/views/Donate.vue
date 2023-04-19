@@ -7,47 +7,13 @@
     :instance-options="instanceOptions"
     :elements-options="elementsOptions"
   >
-    <b-row>
-      <b-col>
-        <b-form-group>
-          <StripeElement type="cardNumber"
-            :elements="elements"
-            :options="cardOptions"
-          />
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <StripeElement type="cardExpiry"
-          :elements="elements"
-          :options="cardOptions"
-        />
-      </b-col>
-      <b-col>
-        <StripeElement type="cardCvc"
-          :elements="elements"
-          :options="cardOptions"
-        />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <StripeElement type="countryCode"
-          :elements="elements"
-          :options="addressOptions"
-        />
-      </b-col>
-      <b-col>
-        <StripeElement type="postalCode"
-          :elements="elements"
-          :options="addressOptions"
-        />
-      </b-col>
-    </b-row>
-  </StripeElements>
+    <StripeElement type="payment"
+      :elements="elements"
+      :options="paymentOptions"
+    />
 
-  <b-button size="large" variant="primary">Donate today</b-button>
+    <b-button size="large" variant="primary">Donate today</b-button>
+  </StripeElements>
 </template>
 
 <script>
@@ -64,12 +30,33 @@ export default {
   },
 
   data: () => ({
-    addressOptions: ref({
-      mode: 'billing',
+    clientSecret: import.meta.env.VITE_STRIPE_KEY,
+    paymentOptions: ref({
+      layout: 'accordion',
+      spacedAccordionItems: false,
+      radios: false,
+      business: {
+        name: 'Andy Homeless Proj',
+      },
+      fields: {
+        billingDetails: {
+          name: 'never',
+          email: 'never',
+          phone: 'never',
+          address: {
+            line1: 'never',
+            line2: 'never',
+            city: 'never',
+            state: 'never',
+            country: 'auto',
+            postal_code: 'auto',
+          },
+        },
+      },
     }),
 
+    postalCodeOptions: ref({}),
     cardOptions: ref({
-      // https://stripe.com/docs/stripe.js#element-options
       showIcon: true,
     }),
 
@@ -84,11 +71,7 @@ export default {
     });
 
     const elementsOptions = ref({
-      layout: {
-        // type: 'accordion',
-        // defaultCollapsed: true,
-        // radios: false,
-      },
+      clientSecret: 'seti_1MycB52eZvKYlo2CXcvvzPOF_secret_Nk6Nw8RZqARpMJGPSBKXAKA1wSezJ4R',
 
       billingDetails: {
         name: 'never',
@@ -118,6 +101,12 @@ export default {
     }
   },
 
+  created() {
+    this.$store.dispatch('homie/get', {
+      id: this.$route.params.id
+    })
+  },
+
   methods: {
     pay() {
       // Get stripe element
@@ -129,39 +118,39 @@ export default {
     },
   },
 }
-    // if (error.type === "card_error" || error.type === "validation_error") {
-    //   setMessage(error.message);
-    // } else {
-    //   setMessage("An unexpected error occurred.");
-    // }
 </script>
 
 <style lang="scss">
-/**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
- */
-.StripeElement {
-  box-sizing: border-box;
-  height: 40px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 1px 3px 0 #e6ebf1;
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
-}
-.StripeElement--focus {
-  box-shadow: 0 1px 3px 0 #cfd7df;
-}
-.StripeElement--invalid {
-  border-color: #fa755a;
-}
-.StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
-}
-.hide {
-  display: none;
+  .StripeElement {
+    box-sizing: border-box;
+    min-height: 40px;
+    height: auto;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  button {
+    margin-top: 30px;
 }
 </style>
