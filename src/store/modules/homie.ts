@@ -1,11 +1,11 @@
 import { http, mutateState } from '@/utils';
-import { watch } from 'vue';
 import { Module } from 'vuex';
 
 interface HomieStore {
   name: string,
   description: string,
   image: string,
+  code: string,
 }
 
 const store: Module<HomieStore, unknown> = {

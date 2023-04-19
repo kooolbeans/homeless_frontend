@@ -23,6 +23,7 @@ module.exports = {
     "no-debugger": "warn",
     "no-unused-vars": "warn",
     "no-useless-catch": "off",
-    "vue/multi-word-component-names": "off",
+    "vue/no-unused-components": "off",
+    "vue/multi-word-component-names": "off"
   },
 };

@@ -1,6 +1,8 @@
+import '@stripe/stripe-js';
 import { createApp } from 'vue';
 import BootstrapVue from 'bootstrap-vue-next';
 
+import './stripe';
 import App from './App';
 import router from './router';
 import store from './store';
