@@ -36,7 +36,7 @@ export default {
       spacedAccordionItems: false,
       radios: false,
       business: {
-        name: 'Andy Homeless Proj',
+        name: 'Homeless Project',
       },
       fields: {
         billingDetails: {

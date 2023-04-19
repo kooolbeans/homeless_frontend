@@ -9,10 +9,12 @@ const route = (name: string, path: string, component: Component) => ({
 });
 
 const routes: RouteRecordRaw[] = [
-  route('QR', '/:id/qr', () => import('@/views/QR.vue')),
-  route('Homie', '/:id/homie', () => import('@/views/Homie.vue')),
-  route('Donate', '/:id/donate', () => import('@/views/Donate.vue')),
-  route('Confirmation', '/:id/confirmation', () => import('@/views/Confirmation.vue')),
+  route('Home', '/', () => import('@/views/Homie.vue')),
+  route('Homie', '/homie/:id', () => import('@/views/Homie.vue')),
+  route('QR', '/qr/:id', () => import('@/views/QR.vue')),
+  route('Homie', '/homie/:id', () => import('@/views/Homie.vue')),
+  route('Donate', '/donate/:id', () => import('@/views/Donate.vue')),
+  route('Confirmation', '/confirmation/:id', () => import('@/views/Confirmation.vue')),
 ];
 
 export default routes;

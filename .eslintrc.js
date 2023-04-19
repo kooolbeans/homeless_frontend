@@ -21,6 +21,7 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "no-debugger": "warn",
+    "no-extra-boolean-cast": "off",
     "no-unused-vars": "warn",
     "no-useless-catch": "off",
     "vue/no-unused-components": "off",

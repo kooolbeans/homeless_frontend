@@ -1,12 +1,12 @@
 <template>
-  <Profile />
-  <b-row>
+  <Profile v-if="id" />
+  <b-row v-if="id">
     <b-col>
       {{ description }}
       <b-button
         size="large"
         variant="primary"
-        @click="navigateToPayments()"
+        :to="`/donate/${id}`"
       >
         Donate today
       </b-button>
@@ -17,6 +17,7 @@
 <script>
 import get from 'lodash/get';
 import Profile from '@/components/Profile.vue';
+import { http } from '@/utils';
 
 export default {
   components: {
@@ -24,22 +25,48 @@ export default {
   },
 
   computed: {
-    description: () => {
-      return get(this, '$store.state.homie.description', null);
+    id() {
+      return this.$store.state.homie.id
+    },
+
+    description() {
+      return this.$store.state.homie.description;
     },
   },
 
-  props: ['id'],
   created() {
-    this.$store.dispatch('homie/get', {
-      id: this.$route.params.id
-    })
+    if(!this.$route.params.id) {
+      this.fetch();
+    }
+  },
+
+  mounted() {
+    console.log(this.$route)
+    this.fetch();
+    console.log(this.id)
   },
 
   methods: {
+    fetch() {
+      if(!!this.$route.params.id) {
+      this.$store.dispatch('homie/get', {
+        id: this.$route.params.id
+      })
+    } else {
+      http.get('/homies')
+        .then((homies) => {
+          if(homies.length > 0) {
+            const { _id: id } = homies[0];
+            this.$router.push({ path: `/homie/${id}`})
+          }
+        })
+      }
+    },
+
     navigateToPayments() {
-      this.$router.push('/donate')
-    }
+      console.log(`/donate/${this.id}`)
+      this.$router.push({ path: `/donate/${this.id}` })
+    },
   },
 }
 </script>

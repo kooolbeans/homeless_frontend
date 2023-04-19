@@ -12,6 +12,7 @@ const store: Module<HomieStore, unknown> = {
   namespaced: true,
   state() {
     return {
+      id: '',
       name: '',
       description: 'description',
       image: '',
@@ -24,8 +25,9 @@ const store: Module<HomieStore, unknown> = {
       mutateState(state, payload);
     },
 
-    update(state, { name, description, image_url: image }) {
+    update(state, { _id: id, name, description, image_url: image }) {
       mutateState(state, {
+        id,
         name,
         description,
         image,
@@ -35,8 +37,12 @@ const store: Module<HomieStore, unknown> = {
 
   actions: {
     // @ts-ignore
-    async get({ commit }: any, params: any) {
+    async get({ commit, state }: any, params: any) {
       const { id } = params;
+
+      if(state.id === id) {
+        return;
+      }
 
       try {
         const homie =  await http.get(`/homie/${id}`);
