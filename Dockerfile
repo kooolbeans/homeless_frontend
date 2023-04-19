@@ -8,9 +8,8 @@ WORKDIR /var/app/homeless
 COPY . /
 
 RUN npm install
-# RUN npm run build
+RUN npm run build
 
 EXPOSE $PORT
 
-# CMD [ "npm", "serve" ]
-CMD [ "npm", "start" ]
+CMD [ "npm", "serve" ]

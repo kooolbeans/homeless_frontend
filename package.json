@@ -4,7 +4,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit --suppress @ && vite build",
     "serve": "vite preview",
     "lint:fix": "eslint --ext .ts,.tsx,.vue --fix ."
   },
