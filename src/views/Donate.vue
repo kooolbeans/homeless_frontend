@@ -11,8 +11,10 @@
       :elements="elements"
       :options="paymentOptions"
     />
-
-    <b-button size="large" variant="primary">Donate today</b-button>
+    <b-form-group label="Donation" placeholder="0.00">
+      <b-form-input type="number" />
+    </b-form-group>
+    <b-button :to="`/confirmation/${id}`" size="large" variant="primary">Donate today</b-button>
   </StripeElements>
 </template>
 
@@ -27,6 +29,12 @@ export default {
   components: {
     StripeElements,
     StripeElement,
+  },
+
+  computed: {
+    id() {
+      return this.$route.params.id;
+    },
   },
 
   data: () => ({

@@ -5,7 +5,7 @@
         Thank you for your Contribution!
       </h1>
       <p>
-        How you helped Robert... lorem ipsum
+        How you helped Robert!
       </p>
       <div class="text-center mb-3">
         <b-img
