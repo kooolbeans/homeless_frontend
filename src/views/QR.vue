@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import get from 'lodash/get';
-
 export default {
   computed: {
     code() {
@@ -20,11 +18,6 @@ export default {
     this.$store.dispatch('homie/code', {
       id: this.$route.params.id
     })
-
-    // QRCode.toCanvas(this.$refs, 'sample text', function (error) {
-    //   if (error) console.error(error)
-    //   console.log('success!');
-    // })
   },
 }
 </script>
