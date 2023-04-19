@@ -8,6 +8,7 @@ export default defineComponent({
   setup() {
     return () => (
       <div class="main">
+        {/* @ts-ignore */}
         <Header />
         <main class="content">
           <b-container fluid class="p-0">

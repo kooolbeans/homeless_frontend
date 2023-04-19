@@ -1,6 +1,6 @@
 <template>
   <Profile />
-  <StripeCheckout />
+  <!-- <StripeCheckout /> -->
   <b-form @submit="onSubmit" @reset="onReset">
     <b-row>
       <b-col>
@@ -110,7 +110,7 @@ const countries = [
 export default {
   components: {
     Profile,
-    StripeCheckout,
+    // StripeCheckout,
   },
 
   data: () => ({
